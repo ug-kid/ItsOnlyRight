@@ -6,7 +6,7 @@ var lvl_unlocked = Progress.progress
 @onready var grid = $ColorRect/MarginContainer/VBoxContainer/GridContainer
 
 func _ready() -> void:
-	BgMusic.volume_db = -5
+	BgMusic.volume_db = -10
 	if Progress.progress == null:
 		Progress.progress = 1
 		print("initialized")

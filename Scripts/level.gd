@@ -20,7 +20,7 @@ func _ready() -> void:
 	$FinishLineArea/CollisionShape2D.global_position = finish_line_pos
 	$FinishLineArea/CollisionShape2D.scale = finish_line_scale
 	$CanvasLayer/Control/Congrats_Sequence/VBoxContainer/LevelButton.level_path = next_lvl_path
-	BgMusic.volume_db = -5
+	BgMusic.volume_db = -10
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

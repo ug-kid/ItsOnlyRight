@@ -13,7 +13,7 @@ var engine_power = BASE_ENGINE_POWER
 var friction = -55
 var drag = -0.06
 var braking = -450
-var max_speed_reverse = 150
+var max_speed_reverse = 75
 var tiny_turbo_ready = false
 var acceleration = Vector2.ZERO
 var steer_direction
