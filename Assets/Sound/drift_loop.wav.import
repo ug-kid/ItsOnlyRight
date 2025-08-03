@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b5bnhh5yhuvy0"
-path="res://.godot/imported/drift_loop.wav-570e906eb6e7afb3979884f2918dbfe2.sample"
+path="res://.godot/imported/drift_loop.wav-d8d34851fffa39731043829652e4e8a5.sample"
 
 [deps]
 
-source_file="res://ItsOnlyRight/Assets/Sound/drift_loop.wav"
-dest_files=["res://.godot/imported/drift_loop.wav-570e906eb6e7afb3979884f2918dbfe2.sample"]
+source_file="res://Assets/Sound/drift_loop.wav"
+dest_files=["res://.godot/imported/drift_loop.wav-d8d34851fffa39731043829652e4e8a5.sample"]
 
 [params]
 

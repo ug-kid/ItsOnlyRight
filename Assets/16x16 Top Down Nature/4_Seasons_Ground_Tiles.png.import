@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwrhjwu48mh7y"
-path="res://.godot/imported/4_Seasons_Ground_Tiles.png-60a2fb3062346b096f26771163091960.ctex"
+path="res://.godot/imported/4_Seasons_Ground_Tiles.png-8f1b567076aac920bbc9c7d70ce7e1cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ItsOnlyRight/Assets/16x16 Top Down Nature/4_Seasons_Ground_Tiles.png"
-dest_files=["res://.godot/imported/4_Seasons_Ground_Tiles.png-60a2fb3062346b096f26771163091960.ctex"]
+source_file="res://Assets/16x16 Top Down Nature/4_Seasons_Ground_Tiles.png"
+dest_files=["res://.godot/imported/4_Seasons_Ground_Tiles.png-8f1b567076aac920bbc9c7d70ce7e1cb.ctex"]
 
 [params]
 

@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://wdstrop2fflb" path="res://Assets/themes/button_theme.tres" id="1_n82rj"]
 [ext_resource type="PackedScene" uid="uid://fncukmbqia53" path="res://Scenes/level_button.tscn" id="1_p3fck"]
-[ext_resource type="Script" uid="uid://c7bq8hk5uqkj" path="res://Scenes/quit_button.gd" id="2_4gxqj"]
+[ext_resource type="Script" uid="uid://c7bq8hk5uqkj" path="res://Scripts/quit_button.gd" id="2_4gxqj"]
 [ext_resource type="Texture2D" uid="uid://dow7qa5odo3gp" path="res://Assets/Sprites/Traffic Light Menu.png" id="3_4gxqj"]
-[ext_resource type="Script" uid="uid://dqejo307ahx32" path="res://Scenes/title_screen.gd" id="4_0061g"]
+[ext_resource type="Script" uid="uid://dqejo307ahx32" path="res://Scripts/title_screen.gd" id="4_0061g"]
 [ext_resource type="StyleBox" uid="uid://ckk7m314m3cy1" path="res://Assets/themes/wasd_hover.tres" id="6_6vd4x"]
 [ext_resource type="StyleBox" uid="uid://ec17ldxs4265" path="res://Assets/themes/wasd.tres" id="6_12m1t"]
 [ext_resource type="Texture2D" uid="uid://4dbdwv7o03ql" path="res://Assets/CarSprite.png" id="8_n82rj"]

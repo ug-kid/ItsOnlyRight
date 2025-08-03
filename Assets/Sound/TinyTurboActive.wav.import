@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cdtvtx0f43ao3"
-path="res://.godot/imported/TinyTurboActive.wav-00efadb4a8603dff3fa24b0f99792e07.sample"
+path="res://.godot/imported/TinyTurboActive.wav-d5e6d78eddc5b481c76d0fa5e3e16a3b.sample"
 
 [deps]
 
-source_file="res://ItsOnlyRight/Assets/Sound/TinyTurboActive.wav"
-dest_files=["res://.godot/imported/TinyTurboActive.wav-00efadb4a8603dff3fa24b0f99792e07.sample"]
+source_file="res://Assets/Sound/TinyTurboActive.wav"
+dest_files=["res://.godot/imported/TinyTurboActive.wav-d5e6d78eddc5b481c76d0fa5e3e16a3b.sample"]
 
 [params]
 
