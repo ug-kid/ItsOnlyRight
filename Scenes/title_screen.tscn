@@ -1,0 +1,225 @@
+[gd_scene load_steps=16 format=3 uid="uid://blbqferf6xja3"]
+
+[ext_resource type="Theme" uid="uid://wdstrop2fflb" path="res://Assets/themes/button_theme.tres" id="1_n82rj"]
+[ext_resource type="PackedScene" uid="uid://fncukmbqia53" path="res://Scenes/level_button.tscn" id="1_p3fck"]
+[ext_resource type="Script" uid="uid://c7bq8hk5uqkj" path="res://Scenes/quit_button.gd" id="2_4gxqj"]
+[ext_resource type="Texture2D" uid="uid://dow7qa5odo3gp" path="res://Assets/Sprites/Traffic Light Menu.png" id="3_4gxqj"]
+[ext_resource type="Script" uid="uid://dqejo307ahx32" path="res://Scenes/title_screen.gd" id="4_0061g"]
+[ext_resource type="StyleBox" uid="uid://ckk7m314m3cy1" path="res://Assets/themes/wasd_hover.tres" id="6_6vd4x"]
+[ext_resource type="StyleBox" uid="uid://ec17ldxs4265" path="res://Assets/themes/wasd.tres" id="6_12m1t"]
+[ext_resource type="Texture2D" uid="uid://4dbdwv7o03ql" path="res://Assets/CarSprite.png" id="8_n82rj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n82rj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0061g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8mikk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sqelc"]
+
+[sub_resource type="Animation" id="Animation_8mikk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.40681]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7.62939e-06, 723)]
+}
+
+[sub_resource type="Animation" id="Animation_0061g"]
+resource_name = "car swoop"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.586431, 0.408407]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0503923, 0.100785, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(266, 738), Vector2(227, 588), Vector2(183, 426), Vector2(202, 150)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqelc"]
+_data = {
+&"RESET": SubResource("Animation_8mikk"),
+&"car_swoop": SubResource("Animation_0061g")
+}
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_n82rj")
+script = ExtResource("4_0061g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.171055, 0.202932, 0.311718, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.605035
+anchor_top = 0.376543
+anchor_right = 0.947917
+anchor_bottom = 0.935185
+texture = ExtResource("3_4gxqj")
+region_rect = Rect2(200, 0, 202, 200)
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.800347
+anchor_top = 0.432099
+anchor_right = 0.918403
+anchor_bottom = 0.888889
+offset_top = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 105
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelButton" parent="VBoxContainer" instance=ExtResource("1_p3fck")]
+layout_mode = 2
+size_flags_vertical = 4
+text = "PLAY"
+level_path = "uid://345tnow5jp2e"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+script = ExtResource("2_4gxqj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.399306
+anchor_right = 0.954861
+anchor_bottom = 0.408951
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = -51
+theme_override_font_sizes/font_size = 172
+text = "Its Only Right!"
+horizontal_alignment = 2
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="WASDGridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.175347
+anchor_top = 0.314815
+anchor_right = 0.463542
+anchor_bottom = 0.723765
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 70
+theme_override_constants/v_separation = 15
+columns = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="WASDGridContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="WASDGridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = ExtResource("6_6vd4x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n82rj")
+theme_override_styles/normal = ExtResource("6_12m1t")
+text = "W"
+
+[node name="Control2" type="Control" parent="WASDGridContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="WASDGridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = ExtResource("6_6vd4x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0061g")
+theme_override_styles/normal = ExtResource("6_6vd4x")
+text = "A"
+
+[node name="Button5" type="Button" parent="WASDGridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = ExtResource("6_6vd4x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8mikk")
+theme_override_styles/normal = ExtResource("6_12m1t")
+text = "S"
+
+[node name="Button6" type="Button" parent="WASDGridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+theme_override_styles/hover = ExtResource("6_6vd4x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_sqelc")
+theme_override_styles/normal = ExtResource("6_12m1t")
+text = "D"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(7.62939e-06, 723)
+rotation = -2.40681
+scale = Vector2(2.65625, 2.65625)
+texture = ExtResource("8_n82rj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_sqelc")
+}
+
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="VBoxContainer/QuitButton" method="_on_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

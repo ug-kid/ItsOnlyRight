@@ -1,0 +1,130 @@
+[gd_scene load_steps=18 format=3 uid="uid://dob6o82r4q7mt"]
+
+[ext_resource type="Script" uid="uid://cfj68riphs7vv" path="res://Scripts/car.gd" id="1_go66d"]
+[ext_resource type="Script" uid="uid://jpjddx1fswm5" path="res://Scripts/line_2d.gd" id="3_1sfmx"]
+[ext_resource type="Texture2D" uid="uid://4dbdwv7o03ql" path="res://Assets/CarSprite.png" id="3_6c0gb"]
+[ext_resource type="Script" uid="uid://c0qxr41clelst" path="res://Scripts/car_state_machine.gd" id="4_u41r7"]
+[ext_resource type="Script" uid="uid://d18uawpsinmfs" path="res://Scripts/state_drive.gd" id="5_u41r7"]
+[ext_resource type="Script" uid="uid://bo5tmfhr5xo5k" path="res://Scripts/state_drift.gd" id="6_aky6y"]
+[ext_resource type="Script" uid="uid://cxnopgplt2e7c" path="res://Scripts/state_idle.gd" id="7_aqss3"]
+[ext_resource type="AudioStream" uid="uid://b5bnhh5yhuvy0" path="res://Assets/Sound/drift_loop.wav" id="9_argdw"]
+[ext_resource type="AudioStream" uid="uid://dbbwpb2vbppwp" path="res://Assets/Sound/engine_off.wav" id="9_lh2yg"]
+[ext_resource type="AudioStream" uid="uid://cdtvtx0f43ao3" path="res://Assets/Sound/TinyTurboActive.wav" id="10_lh2yg"]
+[ext_resource type="Texture2D" uid="uid://lv6l7twth6km" path="res://Assets/Sprites/TinyTurboFlame.png" id="11_6c0gb"]
+
+[sub_resource type="Curve" id="Curve_aky6y"]
+_data = [Vector2(0.0159575, 0), 0.0, 0.0, 0, 0, Vector2(0.952128, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yi23e"]
+radius = 15.0
+height = 66.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15bpq"]
+atlas = ExtResource("11_6c0gb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dpuy"]
+atlas = ExtResource("11_6c0gb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkuty"]
+atlas = ExtResource("11_6c0gb")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_57vaf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15bpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dpuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkuty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Car" type="CharacterBody2D"]
+script = ExtResource("1_go66d")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_speed = 15.0
+
+[node name="DriftTrailLeft" type="Line2D" parent="."]
+top_level = true
+z_index = 1
+width = 15.0
+width_curve = SubResource("Curve_aky6y")
+default_color = Color(1, 0, 0, 1)
+script = ExtResource("3_1sfmx")
+
+[node name="DriftTrailRight" type="Line2D" parent="."]
+top_level = true
+z_index = 1
+width = 15.0
+width_curve = SubResource("Curve_aky6y")
+default_color = Color(1, 0, 0, 1)
+script = ExtResource("3_1sfmx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("3_6c0gb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 19
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yi23e")
+
+[node name="TinyTurboCharge" type="Timer" parent="."]
+one_shot = true
+
+[node name="TinyTurboBoost" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="CarStateMachine" type="Node" parent="."]
+script = ExtResource("4_u41r7")
+
+[node name="State_Drive" type="Node" parent="CarStateMachine"]
+script = ExtResource("5_u41r7")
+metadata/_custom_type_script = "uid://d18uawpsinmfs"
+
+[node name="State_Drift" type="Node" parent="CarStateMachine"]
+script = ExtResource("6_aky6y")
+metadata/_custom_type_script = "uid://bo5tmfhr5xo5k"
+
+[node name="State_Idle" type="Node" parent="CarStateMachine"]
+script = ExtResource("7_aqss3")
+metadata/_custom_type_script = "uid://cjums4olrkg2i"
+
+[node name="DeAccelSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_lh2yg")
+pitch_scale = 0.95
+
+[node name="DriftSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_argdw")
+
+[node name="TinyTurboSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_lh2yg")
+
+[node name="TinyTurboFLame" type="AnimatedSprite2D" parent="."]
+z_index = 2
+position = Vector2(-38, 1)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_57vaf")
+frame = 1
+frame_progress = 0.571499
+
+[connection signal="timeout" from="TinyTurboCharge" to="." method="_on_tiny_turbo_timeout"]
+[connection signal="timeout" from="TinyTurboCharge" to="DriftTrailLeft" method="_on_tiny_turbo_charge_timeout"]
+[connection signal="timeout" from="TinyTurboCharge" to="DriftTrailRight" method="_on_tiny_turbo_charge_timeout"]
+[connection signal="timeout" from="TinyTurboBoost" to="." method="_on_tiny_turbo_boost_timeout"]
+[connection signal="drift_end" from="CarStateMachine/State_Drift" to="." method="_on_drift_end"]
+[connection signal="drift_end" from="CarStateMachine/State_Drift" to="DriftTrailLeft" method="_on_drift_end"]
+[connection signal="drift_end" from="CarStateMachine/State_Drift" to="DriftTrailRight" method="_on_drift_end"]
+[connection signal="drift_start" from="CarStateMachine/State_Drift" to="." method="_on_drift_start"]

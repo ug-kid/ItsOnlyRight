@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://blbqferf6xja3"]
+
+[ext_resource type="PackedScene" uid="uid://fncukmbqia53" path="res://Scenes/level_button.tscn" id="1_p3fck"]
+[ext_resource type="Script" uid="uid://c7bq8hk5uqkj" path="res://Scenes/quit_button.gd" id="2_4gxqj"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -110.0
+offset_right = 156.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelButton" parent="VBoxContainer" instance=ExtResource("1_p3fck")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+level_path = "uid://345tnow5jp2e"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+script = ExtResource("2_4gxqj")
+
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="VBoxContainer/QuitButton" method="_on_pressed"]

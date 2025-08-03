@@ -1,0 +1,249 @@
+[gd_scene load_steps=12 format=3 uid="uid://bba4e5qocqea4"]
+
+[ext_resource type="Script" uid="uid://clmdkgxlbhtlx" path="res://Scripts/level.gd" id="1_81xng"]
+[ext_resource type="Theme" uid="uid://wdstrop2fflb" path="res://Assets/themes/button_theme.tres" id="3_0f350"]
+[ext_resource type="PackedScene" uid="uid://cho84q657utct" path="res://Scenes/reset_button.tscn" id="3_81xng"]
+[ext_resource type="PackedScene" uid="uid://dob6o82r4q7mt" path="res://Scenes/car.tscn" id="4_8c0lf"]
+[ext_resource type="Script" uid="uid://cyqba6jkyprlo" path="res://Scripts/congrats_sequence.gd" id="4_754fn"]
+[ext_resource type="Script" uid="uid://c0b36s2fumq8r" path="res://Scripts/pause_menu.gd" id="5_0f350"]
+[ext_resource type="PackedScene" uid="uid://fncukmbqia53" path="res://Scenes/level_button.tscn" id="5_wqkje"]
+[ext_resource type="Script" uid="uid://366wssgc0pw4" path="res://Scripts/lose_sequence.gd" id="7_bvt00"]
+[ext_resource type="AudioStream" uid="uid://dggdkugbbvc81" path="res://Assets/Sound/win_sound.wav" id="9_oqgf2"]
+[ext_resource type="AudioStream" uid="uid://6ineycqptrag" path="res://Assets/Sound/lose_sound.wav" id="10_qxfql"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t5dby"]
+size = Vector2(100, 100)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_81xng")
+finish_line_scale = Vector2(1, 1)
+time_to_finish = 15.0
+
+[node name="Car" parent="." instance=ExtResource("4_8c0lf")]
+slide_on_ceiling = false
+
+[node name="FinishLineArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLineArea"]
+shape = SubResource("RectangleShape2D_t5dby")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_0f350")
+
+[node name="Congrats_Sequence" type="Control" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_754fn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Congrats_Sequence"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -53.5
+offset_right = 164.0
+offset_bottom = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Congrats_Sequence/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "All right,
+you won!"
+horizontal_alignment = 1
+
+[node name="LevelButton" parent="CanvasLayer/Control/Congrats_Sequence/VBoxContainer" instance=ExtResource("5_wqkje")]
+layout_mode = 2
+text = "Next level"
+
+[node name="ResetButton" parent="CanvasLayer/Control/Congrats_Sequence/VBoxContainer" instance=ExtResource("3_81xng")]
+layout_mode = 2
+
+[node name="back button" parent="CanvasLayer/Control/Congrats_Sequence/VBoxContainer" instance=ExtResource("5_wqkje")]
+layout_mode = 2
+size_flags_vertical = 4
+text = "level select"
+level_path = "uid://345tnow5jp2e"
+
+[node name="LoseSequence" type="Control" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_bvt00")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/LoseSequence"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.357639
+anchor_top = 0.328704
+anchor_right = 0.642361
+anchor_bottom = 0.671296
+offset_top = 26.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/LoseSequence/VBoxContainer"]
+custom_minimum_size = Vector2(350, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/LoseSequence/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(350, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -60.5
+offset_right = 175.0
+offset_bottom = 60.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Too Slow Turtle!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ResetButton" parent="CanvasLayer/Control/LoseSequence/VBoxContainer" instance=ExtResource("3_81xng")]
+layout_mode = 2
+text = "restart (r)"
+
+[node name="back button" parent="CanvasLayer/Control/LoseSequence/VBoxContainer" instance=ExtResource("5_wqkje")]
+layout_mode = 2
+size_flags_vertical = 4
+text = "level select"
+level_path = "uid://345tnow5jp2e"
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer/Control"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_0f350")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/PauseMenu"]
+z_index = -4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 0.552941)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PauseMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.354167
+anchor_top = 0.405864
+anchor_right = 0.645833
+anchor_bottom = 0.595679
+offset_top = 21.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/PauseMenu/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(350, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PauseMenu/ColorRect/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(350, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -60.5
+offset_right = 175.0
+offset_bottom = 60.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "press (esc) to unpause"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ResetButton" parent="CanvasLayer/Control/PauseMenu/ColorRect/VBoxContainer" instance=ExtResource("3_81xng")]
+process_mode = 3
+layout_mode = 2
+size_flags_vertical = 4
+text = "restart (r)"
+icon = null
+
+[node name="back button" parent="CanvasLayer/Control/PauseMenu/ColorRect/VBoxContainer" instance=ExtResource("5_wqkje")]
+layout_mode = 2
+size_flags_vertical = 4
+text = "level select"
+level_path = "uid://345tnow5jp2e"
+
+[node name="TimeLeftLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -165.0
+offset_top = 37.0
+offset_right = -47.0
+offset_bottom = 98.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 72
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelTimer" type="Timer" parent="CanvasLayer/TimeLeftLabel"]
+wait_time = 15.0
+one_shot = true
+
+[node name="WinSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_oqgf2")
+volume_db = 2.0
+pitch_scale = 1.2
+
+[node name="LoseSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_qxfql")
+volume_db = 4.0
+pitch_scale = 0.8
+
+[connection signal="body_entered" from="FinishLineArea" to="." method="_on_finish_line_body_entered"]
+[connection signal="pressed" from="CanvasLayer/Control/Congrats_Sequence/VBoxContainer/ResetButton" to="CanvasLayer/Control/Congrats_Sequence/VBoxContainer/ResetButton" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/LoseSequence/VBoxContainer/ResetButton" to="CanvasLayer/Control/LoseSequence/VBoxContainer/ResetButton" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PauseMenu/ColorRect/VBoxContainer/ResetButton" to="CanvasLayer/Control/PauseMenu/ColorRect/VBoxContainer/ResetButton" method="_on_pressed"]
+[connection signal="timeout" from="CanvasLayer/TimeLeftLabel/LevelTimer" to="." method="game_over"]

@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://dob6o82r4q7mt"]
+
+[ext_resource type="Script" uid="uid://cfj68riphs7vv" path="res://Scripts/car.gd" id="1_go66d"]
+[ext_resource type="Texture2D" uid="uid://doeo0robsiyjm" path="res://Assets/temp_car.png" id="2_1sfmx"]
+[ext_resource type="Script" uid="uid://jpjddx1fswm5" path="res://Scripts/line_2d.gd" id="3_1sfmx"]
+[ext_resource type="Script" uid="uid://c0qxr41clelst" path="res://Scripts/car_state_machine.gd" id="4_u41r7"]
+[ext_resource type="Script" uid="uid://d18uawpsinmfs" path="res://Scripts/state_drive.gd" id="5_u41r7"]
+[ext_resource type="Script" uid="uid://bo5tmfhr5xo5k" path="res://Scripts/state_drift.gd" id="6_aky6y"]
+[ext_resource type="Script" uid="uid://cxnopgplt2e7c" path="res://Scripts/state_idle.gd" id="7_aqss3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yi23e"]
+radius = 15.0
+height = 66.0
+
+[sub_resource type="Curve" id="Curve_aky6y"]
+_data = [Vector2(0.0159575, 0), 0.0, 0.0, 0, 0, Vector2(0.952128, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Car" type="CharacterBody2D"]
+script = ExtResource("1_go66d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yi23e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DriftTrailLeft" type="Line2D" parent="."]
+top_level = true
+z_index = 1
+width = 15.0
+width_curve = SubResource("Curve_aky6y")
+default_color = Color(1, 0, 0, 1)
+script = ExtResource("3_1sfmx")
+
+[node name="DriftTrailRight" type="Line2D" parent="."]
+top_level = true
+z_index = 1
+width = 15.0
+width_curve = SubResource("Curve_aky6y")
+default_color = Color(1, 0, 0, 1)
+script = ExtResource("3_1sfmx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_1sfmx")
+
+[node name="TinyTurboCharge" type="Timer" parent="."]
+one_shot = true
+
+[node name="TinyTurboBoost" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="CarStateMachine" type="Node" parent="."]
+script = ExtResource("4_u41r7")
+
+[node name="State_Drive" type="Node" parent="CarStateMachine"]
+script = ExtResource("5_u41r7")
+metadata/_custom_type_script = "uid://d18uawpsinmfs"
+
+[node name="State_Drift" type="Node" parent="CarStateMachine"]
+script = ExtResource("6_aky6y")
+metadata/_custom_type_script = "uid://bo5tmfhr5xo5k"
+
+[node name="State_Idle" type="Node" parent="CarStateMachine"]
+script = ExtResource("7_aqss3")
+metadata/_custom_type_script = "uid://cjums4olrkg2i"
+
+[connection signal="timeout" from="TinyTurboCharge" to="." method="_on_tiny_turbo_timeout"]
+[connection signal="timeout" from="TinyTurboCharge" to="DriftTrailLeft" method="_on_tiny_turbo_charge_timeout"]
+[connection signal="timeout" from="TinyTurboCharge" to="DriftTrailRight" method="_on_tiny_turbo_charge_timeout"]
+[connection signal="timeout" from="TinyTurboBoost" to="." method="_on_tiny_turbo_boost_timeout"]
+[connection signal="drift_end" from="CarStateMachine/State_Drift" to="." method="_on_drift_end"]
+[connection signal="drift_end" from="CarStateMachine/State_Drift" to="DriftTrailLeft" method="_on_drift_end"]
+[connection signal="drift_end" from="CarStateMachine/State_Drift" to="DriftTrailRight" method="_on_drift_end"]
+[connection signal="drift_start" from="CarStateMachine/State_Drift" to="." method="_on_drift_start"]
