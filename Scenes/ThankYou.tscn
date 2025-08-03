@@ -53,3 +53,5 @@ level_path = "uid://345tnow5jp2e"
 layout_mode = 2
 text = "Quit"
 script = ExtResource("3_t3gwc")
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/Button" to="ColorRect/VBoxContainer/Button" method="_on_pressed"]
